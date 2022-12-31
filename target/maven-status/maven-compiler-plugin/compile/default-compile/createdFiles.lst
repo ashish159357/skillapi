@@ -1,0 +1,9 @@
+com\techhitter\controller\HandleController.class
+com\techhitter\repository\AnswerRepo.class
+com\techhitter\repository\QuetionRepo.class
+com\techhitter\model\AnswerTable.class
+com\techhitter\model\QuetionTable.class
+com\techhitter\model\OptionTable.class
+com\techhitter\main.class
+com\techhitter\model\QueObject.class
+com\techhitter\repository\OptionsRepo.class
