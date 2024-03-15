@@ -1,13 +1,5 @@
 package com.techhitter.model;
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 public class QueObject {
 	
@@ -17,8 +9,7 @@ public class QueObject {
 	private boolean type;
 	private ArrayList<String> ans;
 	private String subject;
-	
-	
+
 	public String getQue() {
 		return que;
 	}
@@ -49,7 +40,4 @@ public class QueObject {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	
-	
-	
 }
