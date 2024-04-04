@@ -25,6 +25,13 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+        <!-- Liquibase -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.10.2</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-jasper</artifactId>
@@ -49,8 +56,7 @@
             <artifactId>postgresql</artifactId>
         </dependency>
 
-        <!--Swagger Dependency-->
-        <!--   Spring Docs     -->
+        <!--Swagger Dependency/Spring Docs -->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
@@ -87,16 +93,19 @@
             <artifactId>jjwt-api</artifactId>
             <version>0.11.5</version>
         </dependency>
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
             <version>0.11.5</version>
         </dependency>
+
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
             <version>0.11.5</version>
         </dependency>
+
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
