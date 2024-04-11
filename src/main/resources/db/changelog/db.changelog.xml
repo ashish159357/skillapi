@@ -25,7 +25,7 @@
             </column>
             <column name="que" type="VARCHAR(20)"/>
             <column name="subject" type="VARCHAR(20)"/>
-            <column name="que_type" type="SMALLINT"/>
+            <column name="que_type" type="boolean"/>
         </createTable>
     </changeSet>
     <changeSet author="AshishSingh (generated)" id="1712220067192-4">
