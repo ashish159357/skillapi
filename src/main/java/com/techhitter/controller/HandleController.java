@@ -37,7 +37,7 @@ public class HandleController {
 	public String index(QueObject qo) {
 		return "index.jsp";
 	}
-	
+
 	@GetMapping("/api/v1/subjects")
 	 List<SubjectTabel> subjects() {	
 		return SubjectApiService.subjects();

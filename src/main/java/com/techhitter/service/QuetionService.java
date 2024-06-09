@@ -6,8 +6,6 @@ import com.techhitter.model.QueObject;
 import com.techhitter.model.QuetionTable;
 
 public interface QuetionService {
-	
 	public QuetionTable QuestionSave(QueObject qo);
 	public List<QueObject> GetQuetion(String ss);
-
 }

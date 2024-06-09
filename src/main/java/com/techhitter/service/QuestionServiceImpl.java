@@ -41,8 +41,7 @@ public class QuestionServiceImpl implements QuetionService {
 			quetiontable.setType(qo.isType());
 			Quetionrepo.save(quetiontable);
 		} catch (Exception e) {
-			logger.info("Error in Saving Quetion, " + e.getMessage());
-			e.printStackTrace();
+			logger.error("Error in Saving Quetion, " + e.getMessage());
 		}
 		return quetiontable;
 	}
@@ -50,12 +49,12 @@ public class QuestionServiceImpl implements QuetionService {
 	public List<QueObject> GetQuetion(String ss) {
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
 	    EntityManager entitymanager = emfactory.createEntityManager();  
-	    List<QueObject> listQue = new ArrayList<QueObject>();;
+	    List<QueObject> listQue = new ArrayList<QueObject>();
 		try {
 			  Query query =  entitymanager.createQuery("Select q from QuetionTable q where q.subject=:ss");
 			  query.setParameter("ss",ss);
 			  List<QuetionTable> list =  (query).getResultList();
-			  
+
 			  for(QuetionTable fruit:list) {  
 				  QueObject ob=new QueObject();
 				  ob.setQue(fruit.getQue());
@@ -66,8 +65,7 @@ public class QuestionServiceImpl implements QuetionService {
 				  listQue.add(ob); 
 			  }
 		} catch (Exception e) {
-			logger.info("Error in Getting Quetion, " + e.getMessage());
-			e.printStackTrace();
+			logger.error("Error in Getting Quetion, " + e.getMessage());
 		}
         return listQue;
 	}
