@@ -30,11 +30,9 @@ public class QuestionServiceImpl implements QuetionService {
 	
 	@Autowired
 	private AnswerService answerApiService;
-	
-	
-	//@Override
+
 	public QuetionTable QuestionSave(QueObject qo) {
-		QuetionTable quetiontable=new QuetionTable();
+		QuetionTable quetiontable = new QuetionTable();
 		try {
 			quetiontable.setQue(qo.getQue());
 			quetiontable.setSubject(qo.getSubject());
@@ -69,6 +67,4 @@ public class QuestionServiceImpl implements QuetionService {
 		}
         return listQue;
 	}
-	
-	
 }
