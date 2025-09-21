@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  eureka-server:
+    image: ashish159357/eureka-registry:latest
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - skill-game
+
+  postgres:
+    image: postgres:13
+    container_name: skillapi-postgres
+    environment:
+      POSTGRES_DB: quizappdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - skill-game
+
+  skillapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: skillapi-app
+    depends_on:
+      - postgres
+      - eureka-server
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/quizappdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_PROFILES_ACTIVE: docker
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "false"
+      EUREKA_INSTANCE_HOSTNAME: skillapi
+    ports:
+      - "8080:8081"
+    networks:
+      - skill-game
+
+volumes:
+  postgres_data:
+
+networks:
+  skill-game:
+    driver: bridge
