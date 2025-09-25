@@ -7,7 +7,7 @@ services:
     ports:
       - "8761:8761"
     networks:
-      - skillgame-network
+      - skill-game
 
   postgres:
     image: postgres:13
@@ -21,7 +21,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - skillgame-network
+      - skill-game
 
   skillapi:
     build:
@@ -42,7 +42,7 @@ services:
     ports:
       - "8080:8081"
     networks:
-      - skillgame-network
+      - skill-game
 
 volumes:
   postgres_data:

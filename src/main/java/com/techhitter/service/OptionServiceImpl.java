@@ -39,27 +39,20 @@ public class OptionServiceImpl implements OptionService{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public ArrayList<String> GetOptions(Long q_id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
-        EntityManager entitymanager = emfactory.createEntityManager();  
-	    ArrayList<String>  l1 = new ArrayList<String>();
+		ArrayList<String> l1 = new ArrayList<String>();
 		try {
-			Query query2 =  entitymanager.createQuery("Select o from OptionTable o where o.q_id=:q_id");
-			  query2.setParameter("q_id",q_id); 
-			  List<OptionTable> list3 =  (query2).getResultList();
-			   
-			  int i=0;
-			  for(OptionTable option:list3) {
-				  //l1[i]=option.getOption();
-				  l1.add(option.getOption());
-				i++;
-			  }
+			List<OptionTable> list3 = OptionsRepo.findByq_id(q_id);
+
+			for(OptionTable option : list3) {
+				l1.add(option.getOption());
+			}
 		} catch (Exception e) {
 			logger.info("Error in Getting Option, " + e.getMessage());
 			e.printStackTrace();
 		}
-	    return l1;
+		return l1;
 	}
 	
 

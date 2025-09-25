@@ -2,15 +2,11 @@ package com.techhitter.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import javax.persistence.Query;
 import org.springframework.stereotype.Service;
 
 import com.techhitter.model.AnswerTable;
@@ -25,39 +21,37 @@ public class AnswerServiceImpl implements AnswerService{
 	AnswerRepo AnswerRepo;
 	
 	
-	public void AnswerSave(ArrayList<String> answers,Long q_id) {
+	public void AnswerSave(ArrayList<String> answers, Long q_id) {
 		try {
-			for(int j=0;j<answers.size();j++) {
-				AnswerTable answertable=new AnswerTable(); 
-				answertable.setQuetion_id(q_id);
-				answertable.setAnswer(answers.get(j));
-				AnswerRepo.save(answertable);
-			}
+			List<AnswerTable> answerTables = answers.stream()
+					.map(answer -> {
+						AnswerTable answerTable = new AnswerTable();
+						answerTable.setQuetion_id(q_id);
+						answerTable.setAnswer(answer);
+						return answerTable;
+					})
+					.collect(Collectors.toList());
+
+			AnswerRepo.saveAll(answerTables);
+			logger.info("Successfully saved {} answers for question ID: {}", answers.size(), q_id);
 		} catch (Exception e) {
-			logger.info("Error in Saving Answer, " + e.getMessage());
+			logger.error("Error in Saving Answer for question ID: {}, Error: {}", q_id, e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
 	public ArrayList<String> GetAnswer(Long q_id) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
-	    EntityManager entitymanager = emfactory.createEntityManager();
-		ArrayList<String>  l2 = new ArrayList<String>();
+		ArrayList<String> answers = new ArrayList<>();
 		try {
-			  Query query3 =  entitymanager.createQuery("Select a from AnswerTable a where a.q_id=:q_id");
-			  query3.setParameter("q_id",q_id);
-			  List<AnswerTable> list4 =  (query3).getResultList();
-			  int j=0;
-			  for(AnswerTable answer:list4) {
-				  //l2[j]=answer.getAnswer();
-				  l2.add(answer.getAnswer());
-				j++;
-			  }
+			List<AnswerTable> answerTables = AnswerRepo.findByq_id(q_id);
+			answers = answerTables.stream()
+					.map(AnswerTable::getAnswer)
+					.collect(Collectors.toCollection(ArrayList::new));
 		} catch (Exception e) {
-			logger.info("Error in Getting Answer, " + e.getMessage()); 
+			logger.error("Error in Getting Answer for question ID: {}, Error: {}", q_id, e.getMessage());
 			e.printStackTrace();
 		}
-	    return l2;
+		return answers;
 	}
 	
 }

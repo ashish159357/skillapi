@@ -14,5 +14,7 @@ public interface QuetionRepo extends JpaRepository<QuetionTable,String> {
 	//String subject=q.getSubject();
 	//@Query("Select subject from QuetionTable q")
 	//List<QuetionTable> findAllDistinctSubjects();
+
+    List<QuetionTable> findBySubject(String subject);
 }
 

@@ -43,28 +43,23 @@ public class QuestionServiceImpl implements QuetionService {
 		}
 		return quetiontable;
 	}
-	
-	public List<QueObject> GetQuetion(String ss) {
-		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "Eclipselink_JPA" );
-	    EntityManager entitymanager = emfactory.createEntityManager();  
-	    List<QueObject> listQue = new ArrayList<QueObject>();
-		try {
-			  Query query =  entitymanager.createQuery("Select q from QuetionTable q where q.subject=:ss");
-			  query.setParameter("ss",ss);
-			  List<QuetionTable> list =  (query).getResultList();
 
-			  for(QuetionTable fruit:list) {  
-				  QueObject ob=new QueObject();
-				  ob.setQue(fruit.getQue());
-				  ob.setType(fruit.getType());
-				  ob.setSubject(fruit.getSubject());
-				  ob.setOptions(optionApiService.GetOptions(fruit.getQ_id()));
-				  ob.setAns(answerApiService.GetAnswer(fruit.getQ_id()));
-				  listQue.add(ob); 
-			  }
+	public List<QueObject> GetQuetion(String ss) {
+		List<QueObject> listQue = new ArrayList<>();
+		try {
+			List<QuetionTable> list = Quetionrepo.findBySubject(ss);
+
+			for(QuetionTable fruit:list) {
+				QueObject ob=new QueObject();
+				ob.setQue(fruit.getQue());
+				ob.setType(fruit.getType());
+				ob.setSubject(fruit.getSubject());
+				ob.setOptions(optionApiService.GetOptions(fruit.getQ_id()));
+				ob.setAns(answerApiService.GetAnswer(fruit.getQ_id()));
+				listQue.add(ob);
+			}
 		} catch (Exception e) {
 			logger.error("Error in Getting Quetion, " + e.getMessage());
 		}
-        return listQue;
-	}
-}
+		return listQue;
+	}}
